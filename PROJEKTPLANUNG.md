@@ -116,6 +116,15 @@ Nach der weiteren Erläuterung des Nutzers ist für den Entwurf außerdem festzu
 
 **Noch offen:** Der genaue Ladeablauf, die Reihenfolge der einzelnen Prüfungen, die Behandlung von Fehlern und die konkrete Umsetzung sind noch nicht festgelegt. Diese Punkte werden später einzeln besprochen. Auch diese Beschreibung bleibt Teil des unverbindlichen Architekturentwurfs.
 
+**Ergänzung zum Entwurf: Prüfung und Laden benötigter Alias-Dateien**
+
+Der Nutzer hat als möglichen Ansatz vorgeschlagen, dass `Control.mrc` einen kleinen, in der Control-Datei selbst enthaltenen Helfer besitzt. Dieser könnte beim Start prüfen, ob benötigte Alias-Dateien wie `System.als`, `battle.als` und `BattleFormular.als` am vorgesehenen Speicherort existieren, und vorhandene Dateien anschließend laden. Weitere Alias-Dateien könnten später ergänzt werden.
+
+Als technischer Ansatz ist in der mIRC-Hilfe der Befehl `/load -a <datei>` zum Laden einer Alias-Datei dokumentiert. Für Remote-Skriptdateien wie `.mrc` ist dagegen `/load -rs <datei>` vorgesehen. Die mIRC-Identifikatoren `$exists(...)` und `$alias(...)` können grundsätzlich bei der Prüfung helfen: Ersterer prüft, ob eine Datei oder ein Verzeichnis existiert; Letzterer kann Auskunft darüber geben, ob eine Alias-Datei geladen ist.
+
+Diese Informationen sind technische Orientierung und noch keine Festlegung der konkreten Implementierung. Insbesondere sind der Name des Prüfhelfers (beispielsweise `Check Scripts`, `Check System Helper` oder ein anderer Name), die genaue Pfadermittlung, die Lade-Reihenfolge und die Fehlerbehandlung noch offen. Es ist auch noch nicht entschieden, ob die vorgeschlagene Aufteilung genau so umgesetzt wird.
+
+
 
 Die folgenden Themen müssen bei Bedarf gemeinsam besprochen werden. Sie sind bewusst **nicht** vorweggenommen:
 
@@ -152,6 +161,13 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-25 – Ergänzung zum Entwurf: Prüfung und Laden von Alias-Dateien
+
+- Den Vorschlag des Nutzers dokumentiert, in `Control.mrc` einen dort selbst enthaltenen Helfer zur Prüfung benötigter Alias-Dateien vorzusehen.
+- Als technische Orientierung die mIRC-Befehle `/load -a` für Alias-Dateien und `/load -rs` für Remote-Skriptdateien sowie die Identifikatoren `$exists(...)` und `$alias(...)` festgehalten.
+- Namen des Prüfhelfers, Pfade, Lade-Reihenfolge und Fehlerbehandlung ausdrücklich als offen markiert.
+- Status: unverbindlicher Vorschlag und technische Orientierung, keine bestätigte Architekturentscheidung.
 
 ### 2026-10-25 – Ergänzung zum Architekturentwurf: Initialisierung
 
