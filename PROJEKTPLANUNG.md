@@ -83,10 +83,31 @@ Die noch offenen Punkte sind Arbeitsaufgaben, keine bereits getroffenen Entschei
 
 ## 6. Noch offene Entscheidungen
 
+### Architekturentwurf: vorgesehene Dateiaufteilung (noch nicht verbindlich)
+
+**Status:** Entwurf des Nutzers vom 2026-10-25. Die Struktur dient vorerst als Orientierung für die Planung. Dateinamen und Zuständigkeiten können später noch geändert werden. Es ist noch keine endgültige Architekturentscheidung und legt keine konkreten Funktionen über die unten genannten Beispiele hinaus fest.
+
+#### Vorgesehene Alias-Dateien (`.als`)
+
+- `System.als`: vorgesehene allgemeine Kern-Helper, unter anderem für die Initialisierung des Skripts, Pfadfestlegung und übergreifende Systemabläufe.
+- `battle.als`: vorgesehene kampfbezogene Helper, unter anderem für Zugreihenfolge, Anordnung der Spielerliste und Monstererzeugung.
+- `BattleFormular.als`: vorgesehener Bereich für die Schadensformel und zugehörige Berechnungen.
+
+Die Helper sollen in den Alias-Dateien liegen und nicht in den eigentlichen Programmdateien (`.mrc`). Die konkrete Aufrufstruktur und die genaue Abgrenzung der Zuständigkeiten sind noch offen.
+
+#### Vorgesehene Programmdateien (`.mrc`)
+
+- `Control.mrc`
+- `character.mrc`
+- `BattleAI.mrc`
+- `Battle.mrc`
+
+Die endgültigen Zuständigkeiten dieser Dateien sind noch nicht festgelegt. Die aufgeführten Namen sind vorläufig und können sich im weiteren Planungsverlauf ändern.
+
 Die folgenden Themen müssen bei Bedarf gemeinsam besprochen werden. Sie sind bewusst **nicht** vorweggenommen:
 
-- Wie die Dateien und Module im Repository genau aufgeteilt werden.
-- Welche Dateinamen und Namenskonventionen verwendet werden.
+- Wie der Architekturentwurf endgültig ausgestaltet wird, einschließlich der genauen Dateiaufteilung und Zuständigkeiten.
+- Ob die vorläufigen Dateinamen und Namenskonventionen beibehalten oder geändert werden.
 - Welche mIRC-Version und welche konkreten Laufzeitbedingungen vorausgesetzt werden, falls dies relevant wird.
 - Welche IRC-Befehle Spieler für Anmeldung und Kampf verwenden.
 - Wie lang die Anmeldephase dauert und wie sie konfiguriert wird.
@@ -118,6 +139,14 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-25 – Vorläufiger Architekturentwurf
+
+- Auf Grundlage des Nutzervorschlags einen ausdrücklich unverbindlichen Entwurf der Dateistruktur ergänzt.
+- Als vorgesehene Alias-Dateien `System.als`, `battle.als` und `BattleFormular.als` mit vorläufigen Zuständigkeitsbeispielen festgehalten.
+- Als vorgesehene Programmdateien `Control.mrc`, `character.mrc`, `BattleAI.mrc` und `Battle.mrc` festgehalten.
+- Festgehalten, dass Dateinamen, Zuständigkeiten und konkrete Funktionen noch gemeinsam besprochen und später geändert werden können.
+- Status: Entwurf des Nutzers, keine endgültige Architekturentscheidung.
 
 ### 2026-10-25 – Verbindliche Dokumentation jeder Entscheidung
 
