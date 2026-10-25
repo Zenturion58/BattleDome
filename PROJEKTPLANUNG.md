@@ -104,6 +104,19 @@ Die Helper sollen in den Alias-Dateien liegen und nicht in den eigentlichen Prog
 
 Die endgültigen Zuständigkeiten dieser Dateien sind noch nicht festgelegt. Die aufgeführten Namen sind vorläufig und können sich im weiteren Planungsverlauf ändern.
 
+#### Ergänzung zum Entwurf: Start und Initialisierung über `Control.mrc`
+
+Nach der weiteren Erläuterung des Nutzers ist für den Entwurf außerdem festzuhalten:
+
+- `Control.mrc` soll den Systemstart und die Initialisierung von BattleDome steuern.
+- Zu den vorgesehenen Aufgaben gehören unter anderem die Prüfung der Verzeichnisstruktur, der Charakterdateien und der Datenbanken sowie die Entscheidung, welche Hilfsfunktionen für den Start benötigt werden.
+- `Control.mrc` soll dafür Helper aus `System.als` aufrufen.
+- Die benötigten Alias-Dateien müssen geladen sein, bevor `Control.mrc` ihre darin definierten Helper aufruft. Andernfalls kann die Initialisierung fehlschlagen oder Probleme verursachen.
+- Der vorgesehene Lade- und Aufrufablauf muss daher so geplant werden, dass benötigte Alias-Dateien zuerst verfügbar sind und erst danach die Initialisierungsschritte ausgeführt werden, die ihre Helper verwenden.
+
+**Noch offen:** Der genaue Ladeablauf, die Reihenfolge der einzelnen Prüfungen, die Behandlung von Fehlern und die konkrete Umsetzung sind noch nicht festgelegt. Diese Punkte werden später einzeln besprochen. Auch diese Beschreibung bleibt Teil des unverbindlichen Architekturentwurfs.
+
+
 Die folgenden Themen müssen bei Bedarf gemeinsam besprochen werden. Sie sind bewusst **nicht** vorweggenommen:
 
 - Wie der Architekturentwurf endgültig ausgestaltet wird, einschließlich der genauen Dateiaufteilung und Zuständigkeiten.
@@ -139,6 +152,14 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-25 – Ergänzung zum Architekturentwurf: Initialisierung
+
+- Auf Grundlage der Erläuterung des Nutzers ergänzt, dass `Control.mrc` den Systemstart und die Initialisierung steuern soll.
+- Als vorgesehene Aufgaben der Control-Datei festgehalten: benötigte Helper bestimmen, Verzeichnisstruktur prüfen sowie Charakterdateien und Datenbanken prüfen.
+- Die Abhängigkeit dokumentiert, dass Alias-Dateien geladen sein müssen, bevor in ihnen definierte Helper während der Initialisierung aufgerufen werden.
+- Ladeablauf, Prüfungsreihenfolge und Fehlerbehandlung ausdrücklich als noch offen markiert.
+- Status: Ergänzung zum unverbindlichen Architekturentwurf, keine endgültige Festlegung der konkreten Umsetzung.
 
 ### 2026-10-25 – Vorläufiger Architekturentwurf
 
