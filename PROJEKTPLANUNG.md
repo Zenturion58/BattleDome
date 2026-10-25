@@ -56,6 +56,7 @@ Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich ge
 - [x] Die Projekttexte und Dokumentation sollen vollständig auf Deutsch geführt werden, soweit es sich um selbst verfasste Texte handelt.
 - [x] Das GitHub-Repository lautet https://github.com/Zenturion58/BattleDome.
 - [x] Eine zentrale Planungsdatei soll Entscheidungen und Arbeitsstand so festhalten, dass ein neues Gespräch nahtlos weiterarbeiten kann.
+- [x] **Jede Entscheidung wird dokumentiert.** Dazu gehören die Entscheidung selbst, wer sie getroffen hat (insbesondere der Nutzer), ihr Status und – wenn relevant – die Gründe sowie Auswirkungen. Vorschläge gelten erst nach Bestätigung als beschlossene Entscheidungen.
 
 ## 5. Technischer und organisatorischer Stand
 
@@ -99,13 +100,14 @@ Neue offene Fragen sollen erst dann ergänzt und bearbeitet werden, wenn sie fü
 
 1. **Diese Datei zuerst lesen:** Zu Beginn einer neuen Unterhaltung soll ChatGPT die aktuelle Version von `PROJEKTPLANUNG.md` im GitHub-Repository abrufen und als Ausgangspunkt verwenden.
 2. **Den aktuellen Stand prüfen:** Zusätzlich ist bei Bedarf der tatsächliche Inhalt des Repositorys zu prüfen. Die Planung allein beweist nicht, dass eine Aufgabe bereits implementiert wurde.
-3. **Fakten und Vorschläge trennen:** Bestätigte Nutzerentscheidungen, Vorschläge, offene Fragen und erledigte Aufgaben müssen klar unterscheidbar bleiben.
-4. **Nichts erfinden:** Unbekannte Werte oder Entscheidungen werden als offen gekennzeichnet, nicht stillschweigend festgelegt.
-5. **Schrittweise vorgehen:** Immer den aktuellen Arbeitsschritt behandeln. Keine zusätzlichen Funktionen oder Planungsbereiche ausarbeiten, wenn der Nutzer sie noch nicht angehen möchte.
-6. **Vor Änderungen prüfen:** Bestehende Dateien vor dem Bearbeiten lesen. Keine Inhalte überschreiben, ohne den aktuellen Stand zu berücksichtigen.
-7. **Nach relevanten Änderungen dokumentieren:** Entscheidungen, Statusänderungen, neue offene Punkte und wichtige technische Erkenntnisse in dieser Datei aktualisieren.
-8. **Commit-Nachrichten auf Deutsch:** Jede Projektänderung erhält eine kurze, aussagekräftige deutsche Commit-Nachricht.
-9. **Übergabe knapp vorbereiten:** Am Ende einer Arbeitssitzung den Status dieser Datei aktualisieren und dem Nutzer mitteilen, welcher konkrete nächste Schritt ansteht.
+3. **Jede Entscheidung dokumentieren:** Jede Projektentscheidung wird zeitnah in dieser Datei festgehalten – ausdrücklich auch kleine Entscheidungen, verworfene Ansätze, Änderungen an früheren Entscheidungen und die Person, die entschieden hat. Wenn bekannt, werden Datum, Begründung und Auswirkungen ergänzt. Nutzerentscheidungen werden als solche gekennzeichnet.
+4. **Fakten und Vorschläge trennen:** Bestätigte Nutzerentscheidungen, Vorschläge, offene Fragen und erledigte Aufgaben müssen klar unterscheidbar bleiben. Ein Vorschlag ist keine Entscheidung, solange der Nutzer ihn nicht bestätigt hat.
+5. **Nichts erfinden:** Unbekannte Werte oder Entscheidungen werden als offen gekennzeichnet, nicht stillschweigend festgelegt.
+6. **Schrittweise vorgehen:** Immer den aktuellen Arbeitsschritt behandeln. Keine zusätzlichen Funktionen oder Planungsbereiche ausarbeiten, wenn der Nutzer sie noch nicht angehen möchte.
+7. **Vor Änderungen prüfen:** Bestehende Dateien vor dem Bearbeiten lesen. Keine Inhalte überschreiben, ohne den aktuellen Stand zu berücksichtigen.
+8. **Nach relevanten Änderungen dokumentieren:** Entscheidungen, Statusänderungen, neue offene Punkte und wichtige technische Erkenntnisse in dieser Datei aktualisieren.
+9. **Commit-Nachrichten auf Deutsch:** Jede Projektänderung erhält eine kurze, aussagekräftige deutsche Commit-Nachricht.
+10. **Übergabe knapp vorbereiten:** Am Ende einer Arbeitssitzung den Status dieser Datei aktualisieren und dem Nutzer mitteilen, welcher konkrete nächste Schritt ansteht.
 
 ## 8. Übergabe an ein neues ChatGPT-Gespräch
 
@@ -116,6 +118,12 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-25 – Verbindliche Dokumentation jeder Entscheidung
+
+- Auf ausdrücklichen Wunsch des Nutzers festgehalten: Jede Entscheidung muss dokumentiert werden.
+- Ergänzt, dass Entscheidungen mit entscheidender Person, Status und – soweit bekannt – Datum, Begründung und Auswirkungen festgehalten werden.
+- Klargestellt, dass Vorschläge erst nach Bestätigung als beschlossene Entscheidungen gelten.
 
 ### 2026-10-25 – Erste Projektplanungsdatei
 
