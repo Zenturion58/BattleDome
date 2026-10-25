@@ -1,0 +1,126 @@
+# BattleDome – Projektplanung und Übergabeprotokoll
+
+> **Zweck dieser Datei:** Diese Datei ist die zentrale, fortlaufend gepflegte Quelle für Projektziele, bestätigte Entscheidungen, offene Fragen, den aktuellen Arbeitsstand und die Übergabe an ein neues ChatGPT-Gespräch. Sie soll verhindern, dass bei einem Gesprächswechsel wichtige Informationen verloren gehen.
+>
+> **Verbindliche Sprachregel:** Die Projektkommunikation und alle selbst verfassten Projektdateien, Dokumentationen, Kommentare, Bot-Meldungen, Befehlsbezeichnungen soweit sinnvoll sowie Git-Commit-Nachrichten werden auf **Deutsch** geführt. Offizielle technische Eigennamen wie mIRC, Git und GitHub bleiben unverändert.
+
+## 1. Projektüberblick
+
+- **Projektname:** BattleDome
+- **Repository:** https://github.com/Zenturion58/BattleDome
+- **GitHub-Konto / Eigentümer:** Zenturion58
+- **Standardbranch:** `main`
+- **Technische Grundlage:** Ein mIRC-Skript in der Skriptsprache von mIRC.
+- **Betriebsmodell:** BattleDome soll als eigenständiger Bot im eigenen IRC-Netzwerk dauerhaft online sein.
+- **Erster Funktionsbereich:** Ein rundenbasiertes PvE-Kampfsystem, in dem mehrere Spieler gemeinsam gegen ein vom Skript erzeugtes und gesteuertes Monster kämpfen.
+- **Arbeitsweise:** Schrittweise und gemeinsam entwickeln. Entscheidungen des Nutzers werden festgehalten. Keine unnötigen Vorgriffe auf spätere Funktionen; zuerst den aktuellen Schritt sauber abschließen.
+
+## 2. Projektziele und Leitlinien
+
+1. **Mehrspieler von Anfang an:** Das erste Kampfsystem soll mehrere Spieler in einem gemeinsamen Kampf unterstützen.
+2. **PvE statt PvP:** Die Spieler kämpfen gemeinsam gegen Monster und nicht gegeneinander.
+3. **Modulare Struktur:** Der Code soll von Beginn an sinnvoll auf mehrere Dateien und Zuständigkeitsbereiche verteilt werden. Kein gesamtes Projekt in einer einzigen Skriptdatei.
+4. **Erweiterbarkeit:** Spätere Erweiterungen sollen sich in die Struktur einfügen lassen, ohne das Grundgerüst unnötig umzubauen. Noch nicht besprochene Erweiterungen werden nicht vorzeitig festgelegt.
+5. **Dokumentation und Übergabefähigkeit:** Wesentliche Ziele, Entscheidungen, offene Fragen und Arbeitsschritte werden hier dokumentiert. Diese Datei ist die zentrale Orientierung bei einem Wechsel in eine neue Unterhaltung.
+6. **Deutsch als Projektsprache:** Selbst verfasste Dokumentation und Projekttexte sind deutschsprachig.
+7. **Kontrollierte Änderungen:** Vor Änderungen an bestehenden Dateien wird deren aktueller Inhalt geprüft. Änderungen sollen nachvollziehbar und mit deutschen Commit-Nachrichten gespeichert werden.
+
+## 3. Bisher bestätigter Ablauf des ersten Kampfsystems
+
+Der Nutzer hat bisher folgenden groben Ablauf beschrieben:
+
+1. Das System kündigt an, dass ein Kampf bevorsteht.
+2. Es beginnt eine zeitlich begrenzte Anmeldephase.
+3. Interessierte Spieler können sich innerhalb dieses Zeitfensters für den Kampf anmelden.
+4. Bei der Ankündigung wird noch nicht verraten, welches Monster erscheinen wird.
+5. Sobald die Anmeldezeit abgelaufen ist, wird die Anmeldung geschlossen.
+6. Erst danach erzeugt das Skript im Hintergrund das Monster und bestimmt die Zugreihenfolge.
+7. Die angemeldeten Spieler kämpfen gemeinsam gegen dieses Monster.
+
+**Wichtig:** Das ist der bisher festgehaltene Grundablauf. Details wie genaue Zeitdauer, Befehle, Regeln für die Zugreihenfolge, Kampfwerte, Monsterdaten und Sieg-/Niederlagebedingungen sind noch nicht abschließend festgelegt. Sie dürfen nicht als bereits getroffene Entscheidungen dargestellt werden.
+
+## 4. Verbindliche Entscheidungen des Nutzers
+
+Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich getroffen oder bestätigt hat.
+
+- [x] Das Projekt heißt **BattleDome**.
+- [x] Es wird als mIRC-Skript umgesetzt.
+- [x] BattleDome soll als eigenständiger Bot im eigenen IRC-Netzwerk dauerhaft online sein.
+- [x] Das erste Spielsystem ist ein rundenbasiertes PvE-Kampfsystem.
+- [x] Mehrere Spieler sollen von Anfang an gemeinsam gegen ein Monster kämpfen können.
+- [x] Das Skript erzeugt und steuert die Monster.
+- [x] Der Kampf wird angekündigt und hat eine begrenzte Anmeldephase.
+- [x] Bei der Ankündigung wird die Identität des Monsters noch nicht bekannt gegeben.
+- [x] Monstererzeugung und Bestimmung der Zugreihenfolge erfolgen erst nach Ende der Anmeldung.
+- [x] Das Projekt soll modular aufgebaut sein und nicht in einer einzigen Datei liegen.
+- [x] Die Projekttexte und Dokumentation sollen vollständig auf Deutsch geführt werden, soweit es sich um selbst verfasste Texte handelt.
+- [x] Das GitHub-Repository lautet https://github.com/Zenturion58/BattleDome.
+- [x] Eine zentrale Planungsdatei soll Entscheidungen und Arbeitsstand so festhalten, dass ein neues Gespräch nahtlos weiterarbeiten kann.
+
+## 5. Technischer und organisatorischer Stand
+
+### GitHub
+
+- Repository: https://github.com/Zenturion58/BattleDome
+- Standardbranch: `main`
+- Bei der letzten Zugriffsprüfung wurde das Repository über die GitHub-Anbindung gefunden.
+- Die gemeldeten Berechtigungen umfassten Lesen (`pull: true`) und Schreiben (`push: true`).
+- Vor dieser Planungsdatei war das Repository leer.
+- Diese Planungsdatei ist der erste dokumentierte Projektinhalt, sobald der zugehörige Commit erfolgreich erstellt wurde.
+
+### Entwicklungsstand
+
+- [x] Projektname festgelegt.
+- [x] Repository angelegt.
+- [x] GitHub-Lese- und Schreibberechtigungen laut Verbindung geprüft.
+- [ ] Projektgrundstruktur festlegen und dokumentieren.
+- [ ] Zuständigkeiten und Dateiaufteilung der mIRC-Skripte festlegen.
+- [ ] Erstes lauffähiges Grundgerüst erstellen.
+- [ ] Kampfsystem schrittweise spezifizieren und umsetzen.
+
+Die noch offenen Punkte sind Arbeitsaufgaben, keine bereits getroffenen Entscheidungen.
+
+## 6. Noch offene Entscheidungen
+
+Die folgenden Themen müssen bei Bedarf gemeinsam besprochen werden. Sie sind bewusst **nicht** vorweggenommen:
+
+- Wie die Dateien und Module im Repository genau aufgeteilt werden.
+- Welche Dateinamen und Namenskonventionen verwendet werden.
+- Welche mIRC-Version und welche konkreten Laufzeitbedingungen vorausgesetzt werden, falls dies relevant wird.
+- Welche IRC-Befehle Spieler für Anmeldung und Kampf verwenden.
+- Wie lang die Anmeldephase dauert und wie sie konfiguriert wird.
+- Wie die Zugreihenfolge genau bestimmt wird.
+- Wie Spieleraktionen, Monsteraktionen, Lebenspunkte, Schaden, Sieg und Niederlage geregelt werden.
+- Wie Spielstände oder andere dauerhafte Daten gespeichert werden, falls erforderlich.
+
+Neue offene Fragen sollen erst dann ergänzt und bearbeitet werden, wenn sie für den aktuellen Umsetzungsschritt relevant sind.
+
+## 7. Arbeitsregeln für künftige Gespräche
+
+1. **Diese Datei zuerst lesen:** Zu Beginn einer neuen Unterhaltung soll ChatGPT die aktuelle Version von `PROJEKTPLANUNG.md` im GitHub-Repository abrufen und als Ausgangspunkt verwenden.
+2. **Den aktuellen Stand prüfen:** Zusätzlich ist bei Bedarf der tatsächliche Inhalt des Repositorys zu prüfen. Die Planung allein beweist nicht, dass eine Aufgabe bereits implementiert wurde.
+3. **Fakten und Vorschläge trennen:** Bestätigte Nutzerentscheidungen, Vorschläge, offene Fragen und erledigte Aufgaben müssen klar unterscheidbar bleiben.
+4. **Nichts erfinden:** Unbekannte Werte oder Entscheidungen werden als offen gekennzeichnet, nicht stillschweigend festgelegt.
+5. **Schrittweise vorgehen:** Immer den aktuellen Arbeitsschritt behandeln. Keine zusätzlichen Funktionen oder Planungsbereiche ausarbeiten, wenn der Nutzer sie noch nicht angehen möchte.
+6. **Vor Änderungen prüfen:** Bestehende Dateien vor dem Bearbeiten lesen. Keine Inhalte überschreiben, ohne den aktuellen Stand zu berücksichtigen.
+7. **Nach relevanten Änderungen dokumentieren:** Entscheidungen, Statusänderungen, neue offene Punkte und wichtige technische Erkenntnisse in dieser Datei aktualisieren.
+8. **Commit-Nachrichten auf Deutsch:** Jede Projektänderung erhält eine kurze, aussagekräftige deutsche Commit-Nachricht.
+9. **Übergabe knapp vorbereiten:** Am Ende einer Arbeitssitzung den Status dieser Datei aktualisieren und dem Nutzer mitteilen, welcher konkrete nächste Schritt ansteht.
+
+## 8. Übergabe an ein neues ChatGPT-Gespräch
+
+Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwenden:
+
+> Wir arbeiten am Projekt BattleDome. Bitte lies zuerst die aktuelle Datei `PROJEKTPLANUNG.md` aus https://github.com/Zenturion58/BattleDome und prüfe den tatsächlichen Repository-Stand. Behandle die dort festgehaltenen Nutzerentscheidungen als verbindlich, unterscheide sie von Vorschlägen und offenen Fragen und fahre nur mit dem nächsten noch offenen Arbeitsschritt fort. Das gesamte Projekt soll auf Deutsch dokumentiert werden. Bitte nichts als erledigt annehmen, was nicht anhand des Repositorys oder der dokumentierten Arbeit bestätigt ist.
+
+Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
+
+## 9. Änderungsprotokoll
+
+### 2026-10-25 – Erste Projektplanungsdatei
+
+- Zentrale Planungs- und Übergabedokumentation angelegt.
+- Bekannte Projektziele und bestätigte Entscheidungen zusammengefasst.
+- Den bisher beschriebenen Ablauf des ersten Kampfsystems festgehalten.
+- Offene Entscheidungen ausdrücklich als offen markiert.
+- Regeln für künftige Gespräche und eine Übergabeanweisung ergänzt.
