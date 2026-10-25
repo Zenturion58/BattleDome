@@ -57,6 +57,7 @@ Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich ge
 - [x] Das GitHub-Repository lautet https://github.com/Zenturion58/BattleDome.
 - [x] Eine zentrale Planungsdatei soll Entscheidungen und Arbeitsstand so festhalten, dass ein neues Gespräch nahtlos weiterarbeiten kann.
 - [x] **Jede Entscheidung wird dokumentiert.** Dazu gehören die Entscheidung selbst, wer sie getroffen hat (insbesondere der Nutzer), ihr Status und – wenn relevant – die Gründe sowie Auswirkungen. Vorschläge gelten erst nach Bestätigung als beschlossene Entscheidungen.
+- [x] **Fehlende unverzichtbare Kerndatei verhindert den Start:** Fehlt eine für den Betrieb zwingend benötigte Datei wie `System.als`, muss die Initialisierung abgebrochen und der Nutzer verständlich auf den Fehler hingewiesen werden. Die Meldung soll dazu auffordern, die Originaldatei erneut aus dem offiziellen BattleDome-GitHub-Repository zu beziehen. Entscheider: Nutzer. Datum: 2026-10-25.
 
 ## 5. Technischer und organisatorischer Stand
 
@@ -124,6 +125,14 @@ Als technischer Ansatz ist in der mIRC-Hilfe der Befehl `/load -a <datei>` zum L
 
 Diese Informationen sind technische Orientierung und noch keine Festlegung der konkreten Implementierung. Insbesondere sind der Name des Prüfhelfers (beispielsweise `Check Scripts`, `Check System Helper` oder ein anderer Name), die genaue Pfadermittlung, die Lade-Reihenfolge und die Fehlerbehandlung noch offen. Es ist auch noch nicht entschieden, ob die vorgeschlagene Aufteilung genau so umgesetzt wird.
 
+**Ergänzung nach Nutzerentscheidung: Verhalten bei fehlender Kernkomponente**
+
+- `System.als` ist als unverzichtbarer Bestandteil der Kernfunktion vorgesehen. Es soll die allgemeinen Systemprüfungen übernehmen, darunter Prüfungen der Ordnerstruktur, der Monsterpfade, benötigter Dateien und möglicher fehlerhafter Datenbankeinträge.
+- Fehlt `System.als`, darf die Initialisierung nicht fortgesetzt werden. Der Start wird abgebrochen und der Nutzer erhält eine verständliche Fehlermeldung.
+- Die Fehlermeldung soll darauf hinweisen, die Originaldatei erneut aus dem offiziellen BattleDome-GitHub-Repository zu beziehen. Ein fehlerhafter Download ist ein vom Nutzer genanntes mögliches Beispiel für eine fehlende Datei.
+- Welche weiteren Dateien als unverzichtbar gelten und wie Fehler beim Laden vorhandener Dateien behandelt werden, bleibt noch offen.
+- Die genaue technische Umsetzung der Meldung und des Abbruchs ist noch nicht festgelegt.
+
 
 
 Die folgenden Themen müssen bei Bedarf gemeinsam besprochen werden. Sie sind bewusst **nicht** vorweggenommen:
@@ -161,6 +170,13 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-25 – Verhalten bei fehlender Kernkomponente festgelegt
+
+- Die ausdrückliche Nutzerentscheidung dokumentiert, dass bei Fehlen einer unverzichtbaren Kernkomponente wie `System.als` die Initialisierung abgebrochen wird.
+- Festgehalten, dass eine verständliche Fehlermeldung den Nutzer auffordern soll, die Originaldatei erneut aus dem offiziellen BattleDome-GitHub-Repository zu beziehen.
+- Die vorgesehene Rolle von `System.als` als zentrale Datei für allgemeine Prüfungen präzisiert: Ordnerstruktur, Monsterpfade, erforderliche Dateien und mögliche fehlerhafte Datenbankeinträge.
+- Offen gelassen, welche weiteren Dateien zwingend sind und wie die technische Fehlerbehandlung umgesetzt wird.
 
 ### 2026-10-25 – Ergänzung zum Entwurf: Prüfung und Laden von Alias-Dateien
 
