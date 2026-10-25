@@ -59,6 +59,9 @@ Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich ge
 - [x] **Jede Entscheidung wird dokumentiert.** Dazu gehören die Entscheidung selbst, wer sie getroffen hat (insbesondere der Nutzer), ihr Status und – wenn relevant – die Gründe sowie Auswirkungen. Vorschläge gelten erst nach Bestätigung als beschlossene Entscheidungen.
 - [x] **Fehlende unverzichtbare Kerndatei verhindert den Start:** Fehlt eine für den Betrieb zwingend benötigte Datei wie `System.als`, muss die Initialisierung abgebrochen und der Nutzer verständlich auf den Fehler hingewiesen werden. Die Meldung soll dazu auffordern, die Originaldatei erneut aus dem offiziellen BattleDome-GitHub-Repository zu beziehen. Entscheider: Nutzer. Datum: 2026-10-25.
 - [x] **Startablauf über `System.als`:** `Control.mrc` soll nur die Existenz von `System.als` prüfen und diese Alias-Datei laden. Danach soll ein Helfer aus `System.als` mit dem festgelegten Namen `system_default_check` aufgerufen werden, der die weiteren Systemprüfungen übernimmt. Die genaue technische Auslösung nach dem Laden ist noch offen. Entscheider: Nutzer. Datum: 2026-10-25.
+- [x] **Zeitpunkt der Systemprüfung:** `system_default_check` soll beim eigentlichen Start von BattleDome ausgeführt werden, nicht bei jedem `ON CONNECT`-Ereignis. Der Nutzer hat die frühere Skizze mit `ON CONNECT` ausdrücklich korrigiert. Entscheider: Nutzer. Datum: 2026-10-26.
+- [x] **Umgang mit gefundenen Systemproblemen:** Wenn `System.als` bei Prüfungen Probleme in Verzeichnisstruktur, Datenbanken, Einstellungen oder anderen benötigten Bestandteilen findet, soll der Nutzer darauf hingewiesen werden. Der Start soll deswegen nicht automatisch verhindert werden; fehlende Bestandteile können allerdings später weitere Fehler verursachen. Der gesonderte Fall einer fehlenden unverzichtbaren Datei `System.als` bleibt davon unberührt und führt zum Startabbruch. Entscheider: Nutzer. Datum: 2026-10-26.
+- [x] **Aufgabenbild von `system_default_check` (vorläufige Beschreibung):** Der Helfer soll beim Botstart verschiedene Systemeinstellungen und Voraussetzungen prüfen, darunter Werte aus einer vorgesehenen `System.dat`, fehlende Standardwerte, Verzeichnisstruktur, Datenbanken wie Waffen und Items sowie Monsterdateien und den eingestellten Monsterpfad. Fehlende Standardeinstellungen können nach dem gezeigten Beispiel ergänzt und anschließend weiterverwendet werden. Die konkrete Umsetzung und die einzelnen Regeln sind noch offen; der Nutzer hat das Codebeispiel ausdrücklich als unverbindliche Skizze bezeichnet. Entscheider: Nutzer. Datum: 2026-10-26.
 
 ## 5. Technischer und organisatorischer Stand
 
@@ -137,6 +140,13 @@ Der Nutzer hat den vorgesehenen Startablauf weiter präzisiert:
 - Die technische Umsetzung des Übergangs nach dem Laden ist noch offen. Der Nutzer hat als mögliche Ansätze einen kurzen Timer oder eine If-Schleife erwähnt; es ist noch nicht entschieden, welcher Mechanismus verwendet wird.
 - Der Entwurf sieht vor, dass `System.als` die nachgelagerten Prüfungen und das Laden weiterer benötigter Skriptdateien übernimmt.
 
+**Ergänzung nach Nutzerklärung: Umfang und Zeitpunkt von `system_default_check`**
+
+- Der Nutzer hat klargestellt, dass `system_default_check` für den eigentlichen Start von BattleDome vorgesehen ist und nicht bei jeder IRC-Verbindung (`ON CONNECT`) erneut ausgeführt werden soll.
+- Als Aufgabenbild für diesen Helfer nannte der Nutzer die Prüfung von Einstellungen in einer vorgesehenen `System.dat` (beispielsweise maximale Rundenzahl, maximale Lebenspunkte und Dauer von Rundenankündigungen), das Ergänzen fehlender Standardeinstellungen sowie Prüfungen der Verzeichnisstruktur, benötigter Datenbanken (unter anderem Waffen- und Item-Datenbanken), Monsterdateien und des konfigurierten Monsterpfads.
+- Bei gefundenen Problemen soll der Nutzer informiert werden, der Start soll aber nicht allein deshalb verhindert werden. Fehlende Daten oder Ressourcen können später dennoch zu Folgefehlern führen. Dies ist von der bereits bestätigten Regel zu unterscheiden, dass der Start bei fehlender unverzichtbarer `System.als` abgebrochen wird.
+- Das vom Nutzer gezeigte mIRC-Codebeispiel ist ausdrücklich nur eine Skizze und kein endgültiger Entwurf. Namen, Syntax, Prüfreihenfolge, Standardwerte und technische Umsetzung bleiben offen.
+
 **Ergänzung nach Nutzerentscheidung: Verhalten bei fehlender Kernkomponente**
 
 - `System.als` ist als unverzichtbarer Bestandteil der Kernfunktion vorgesehen. Es soll die allgemeinen Systemprüfungen übernehmen, darunter Prüfungen der Ordnerstruktur, der Monsterpfade, benötigter Dateien und möglicher fehlerhafter Datenbankeinträge.
@@ -182,6 +192,13 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-26 – Umfang und Zeitpunkt von `system_default_check` präzisiert
+
+- Festgehalten, dass der Helfer beim eigentlichen Botstart und nicht bei jedem `ON CONNECT` ausgeführt werden soll.
+- Das Aufgabenbild aus der Nutzerskizze ergänzt: Systemeinstellungen und fehlende Standardwerte, `System.dat`, Verzeichnisstruktur, benötigte Datenbanken, Monsterdateien und Monsterpfad prüfen.
+- Die Nutzerentscheidung dokumentiert, dass gefundene Probleme gemeldet werden, den Start aber nicht automatisch verhindern sollen; mögliche Folgefehler bleiben möglich.
+- Das Beispiel des Nutzers ausdrücklich als unverbindliche Skizze markiert. Konkrete Umsetzung und Einzelregeln sind weiterhin offen.
 
 ### 2026-10-25 – Startablauf über `System.als` präzisiert
 
