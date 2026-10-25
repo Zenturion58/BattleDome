@@ -58,6 +58,7 @@ Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich ge
 - [x] Eine zentrale Planungsdatei soll Entscheidungen und Arbeitsstand so festhalten, dass ein neues Gespräch nahtlos weiterarbeiten kann.
 - [x] **Jede Entscheidung wird dokumentiert.** Dazu gehören die Entscheidung selbst, wer sie getroffen hat (insbesondere der Nutzer), ihr Status und – wenn relevant – die Gründe sowie Auswirkungen. Vorschläge gelten erst nach Bestätigung als beschlossene Entscheidungen.
 - [x] **Fehlende unverzichtbare Kerndatei verhindert den Start:** Fehlt eine für den Betrieb zwingend benötigte Datei wie `System.als`, muss die Initialisierung abgebrochen und der Nutzer verständlich auf den Fehler hingewiesen werden. Die Meldung soll dazu auffordern, die Originaldatei erneut aus dem offiziellen BattleDome-GitHub-Repository zu beziehen. Entscheider: Nutzer. Datum: 2026-10-25.
+- [x] **Startablauf über `System.als`:** `Control.mrc` soll nur die Existenz von `System.als` prüfen und diese Alias-Datei laden. Danach soll ein Helfer aus `System.als` mit dem festgelegten Namen `system_default_check` aufgerufen werden, der die weiteren Systemprüfungen übernimmt. Die genaue technische Auslösung nach dem Laden ist noch offen. Entscheider: Nutzer. Datum: 2026-10-25.
 
 ## 5. Technischer und organisatorischer Stand
 
@@ -125,6 +126,17 @@ Als technischer Ansatz ist in der mIRC-Hilfe der Befehl `/load -a <datei>` zum L
 
 Diese Informationen sind technische Orientierung und noch keine Festlegung der konkreten Implementierung. Insbesondere sind der Name des Prüfhelfers (beispielsweise `Check Scripts`, `Check System Helper` oder ein anderer Name), die genaue Pfadermittlung, die Lade-Reihenfolge und die Fehlerbehandlung noch offen. Es ist auch noch nicht entschieden, ob die vorgeschlagene Aufteilung genau so umgesetzt wird.
 
+**Ergänzung nach Nutzerentscheidung: Übergabe von `Control.mrc` an `System.als`**
+
+Der Nutzer hat den vorgesehenen Startablauf weiter präzisiert:
+
+- `Control.mrc` prüft, ob `System.als` vorhanden ist, und lädt diese Datei, sofern sie existiert.
+- `Control.mrc` soll nicht selbst alle weiteren Skript- und Alias-Dateien prüfen oder laden.
+- Nach dem Laden von `System.als` soll deren eigener Helper `system_default_check` aufgerufen werden.
+- `system_default_check` soll die weiteren allgemeinen Systemprüfungen übernehmen. Die genauen einzelnen Prüfungen und die genaue Zuständigkeit des Helpers werden später festgelegt.
+- Die technische Umsetzung des Übergangs nach dem Laden ist noch offen. Der Nutzer hat als mögliche Ansätze einen kurzen Timer oder eine If-Schleife erwähnt; es ist noch nicht entschieden, welcher Mechanismus verwendet wird.
+- Der Entwurf sieht vor, dass `System.als` die nachgelagerten Prüfungen und das Laden weiterer benötigter Skriptdateien übernimmt.
+
 **Ergänzung nach Nutzerentscheidung: Verhalten bei fehlender Kernkomponente**
 
 - `System.als` ist als unverzichtbarer Bestandteil der Kernfunktion vorgesehen. Es soll die allgemeinen Systemprüfungen übernehmen, darunter Prüfungen der Ordnerstruktur, der Monsterpfade, benötigter Dateien und möglicher fehlerhafter Datenbankeinträge.
@@ -170,6 +182,13 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-25 – Startablauf über `System.als` präzisiert
+
+- Die Nutzerentscheidung dokumentiert, dass `Control.mrc` nur `System.als` auf Existenz prüft und lädt, statt alle weiteren Skriptdateien selbst zu laden.
+- Den von Nutzer festgelegten Namen `system_default_check` für den nach dem Laden aufzurufenden Helper festgehalten.
+- Die Zuständigkeit von `System.als` für weitere Systemprüfungen und das Laden weiterer benötigter Skriptdateien ergänzt.
+- Timer oder If-Schleife nur als vom Nutzer genannte mögliche Ansätze vermerkt; die konkrete technische Umsetzung bleibt offen.
 
 ### 2026-10-25 – Verhalten bei fehlender Kernkomponente festgelegt
 
