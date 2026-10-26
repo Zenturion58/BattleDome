@@ -63,6 +63,7 @@ Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich ge
 - [x] **Umgang mit gefundenen Systemproblemen:** Wenn `System.als` bei Prüfungen Probleme in Verzeichnisstruktur, Datenbanken, Einstellungen oder anderen benötigten Bestandteilen findet, soll der Nutzer darauf hingewiesen werden. Der Start soll deswegen nicht automatisch verhindert werden; fehlende Bestandteile können allerdings später weitere Fehler verursachen. Der gesonderte Fall einer fehlenden unverzichtbaren Datei `System.als` bleibt davon unberührt und führt zum Startabbruch. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Umfang der ersten Version (Grundgerüst):** Die erste Version konzentriert sich auf das technisch funktionsfähige rundenbasierte PvE-Kampfsystem: Spieler können einem Kampf beitreten, Monster werden zufällig erzeugt und die teilnehmenden Spieler kämpfen gemeinsam gegen das Monster. Waffen, Ausrüstung, Skills, Fähigkeiten, Techniken, Gegenstände, Loot, Events, Quests, Dungeons und weitere Erweiterungen gehören ausdrücklich nicht zur ersten Version; sie können später schrittweise ergänzt werden. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Textausgaben von Programmcode trennen:** Allgemeine Bot- und Systemmeldungen sollen nicht direkt als feste Texte im Quellcode stehen, sondern aus einer vorgesehenen `Translation.dat` gelesen werden. Dazu zählen beispielsweise Kampfmeldungen, Fehlermeldungen, Registrierungs- und spätere Eventankündigungen. Inhaltsspezifische Texte wie Monsterbeschreibungen und -angriffe sowie Waffen-, Skill- oder Techniktexte sollen in den jeweils zuständigen Fachdatenbanken bzw. Dateien liegen. `$readini(...)` ist als möglicher Lesezugriff genannt; das genaue Dateiformat und Schema bleiben offen. Entscheider: Nutzer. Datum: 2026-10-26.
+- [x] **Spielerregistrierung und Kampfbeitritt trennen:** Die Registrierung eines Spielers ist ein eigener Vorgang und muss erfolgt sein, bevor der Spieler den Befehl zum Beitritt in einen Kampf verwenden darf. Der Kampfbeitrittsbefehl registriert keinen Spieler automatisch; unregistrierte Spieler dürfen ihn nicht nutzen. Der konkrete Registrierungsablauf und der Name des Kampfbeitrittsbefehls sind noch offen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Keine Anmeldung zum Kampf:** Wenn sich während der Anmeldephase niemand anmeldet, wird der Kampf abgesagt und der Bot meldet, dass sich niemand angemeldet hat. Anschließend wartet das System eine noch festzulegende Zeit, bevor es eine neue Kampfankündigung startet. Dauer und konkrete Timer-Umsetzung bleiben offen. Entscheider: Nutzer. Datum: 2026-10-26.
 
 ## 5. Technischer und organisatorischer Stand
@@ -94,7 +95,7 @@ Die noch offenen Punkte sind Arbeitsaufgaben, keine bereits getroffenen Entschei
 
 Allgemeine Bot- und Systemmeldungen sollen nicht als feste Nachrichtentexte im Quellcode eingebettet werden. Sie sollen aus einer zentral vorgesehenen `Translation.dat` gelesen werden. Beispiele sind Kampfankündigungen und Kampfmeldungen, Fehlermeldungen, Registrierungsnachrichten sowie spätere Eventankündigungen. Texte, die zu konkreten Spielinhalten gehören – etwa Monsterbeschreibungen und Monsterangriffe oder Waffen-, Skill- und Techniktexte – sollen in den jeweils zuständigen Fachdatenbanken bzw. Dateien liegen.
 
-Der Nutzer nannte `$readini(Datei, Abschnitt, Schlüssel)` als möglichen Zugriff auf Einträge. Das genaue Format der `.dat`-Dateien, die Schlüsselstruktur, der Umgang mit fehlenden Texten und die konkrete Implementierung sind noch offen. Diese Vorgabe dient dazu, den Quellcode übersichtlich zu halten.
+Der Nutzer nannte `$readini(Datei, Abschnitt, Schlüssel)` als möglichen Zugriff auf Einträge und stellte klar, dass für `readini` die Dateiendung (`.dat`, `.db`, `.txt` oder eine andere) nicht entscheidend ist. Maßgeblich ist, dass der Dateiinhalt die erwartete Struktur mit passenden Abschnitten und Schlüsseln besitzt. Das konkrete Schema, der Umgang mit fehlenden Texten und die Implementierung bleiben offen. Diese Vorgabe dient dazu, den Quellcode übersichtlich zu halten.
 
 ### Ablauf bei ausbleibenden Anmeldungen
 
@@ -181,7 +182,9 @@ Die folgenden Themen müssen bei Bedarf gemeinsam besprochen werden. Sie sind be
 - Wie der Architekturentwurf endgültig ausgestaltet wird, einschließlich der genauen Dateiaufteilung und Zuständigkeiten.
 - Ob die vorläufigen Dateinamen und Namenskonventionen beibehalten oder geändert werden.
 - Welche mIRC-Version und welche konkreten Laufzeitbedingungen vorausgesetzt werden, falls dies relevant wird.
-- Welche IRC-Befehle Spieler für Anmeldung und Kampf verwenden.
+- Wie ein Spieler im BattleDome-System registriert wird.
+- Welchen Namen der Befehl zum Beitritt in einen Kampf erhält (beispielsweise `beitreten` oder `join`). Die Entscheidung ist offen.
+- Welche weiteren IRC-Befehle Spieler verwenden, sobald Registrierung und Kampfbeitritt genauer geplant sind.
 - Wie lang die Anmeldephase dauert und wie sie konfiguriert wird.
 - Wie die Zugreihenfolge genau bestimmt wird.
 - Wie Spieleraktionen, Monsteraktionen, Lebenspunkte, Schaden, Sieg und Niederlage geregelt werden.
@@ -211,6 +214,14 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-26 – Spielerregistrierung vom Kampfbeitritt getrennt
+
+- Festgehalten, dass Spielerregistrierung und Beitritt zu einem Kampf zwei getrennte Vorgänge sind.
+- Nur bereits registrierte Spieler dürfen den später festzulegenden Kampfbeitrittsbefehl verwenden; der Beitrittsbefehl führt keine Registrierung durch.
+- Den Befehlsnamen (z. B. `beitreten` oder `join`) ausdrücklich offengelassen.
+- Die nächste Planungsfrage auf den Registrierungsablauf ausgerichtet.
+- Präzisiert, dass bei `$readini(...)` die Dateiendung nicht maßgeblich ist; entscheidend ist die erwartete Datei- und Schlüsselstruktur.
 
 ### 2026-10-26 – Textausgaben und Ablauf ohne Anmeldungen festgelegt
 
