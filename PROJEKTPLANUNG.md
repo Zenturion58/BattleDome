@@ -65,6 +65,7 @@ Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich ge
 - [x] **Textausgaben von Programmcode trennen:** Allgemeine Bot- und Systemmeldungen sollen nicht direkt als feste Texte im Quellcode stehen, sondern aus einer vorgesehenen `Translation.dat` gelesen werden. Dazu zählen beispielsweise Kampfmeldungen, Fehlermeldungen, Registrierungs- und spätere Eventankündigungen. Inhaltsspezifische Texte wie Monsterbeschreibungen und -angriffe sowie Waffen-, Skill- oder Techniktexte sollen in den jeweils zuständigen Fachdatenbanken bzw. Dateien liegen. `$readini(...)` ist als möglicher Lesezugriff genannt; das genaue Dateiformat und Schema bleiben offen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Spielerregistrierung und Kampfbeitritt trennen:** Die Registrierung eines Spielers ist ein eigener Vorgang und muss erfolgt sein, bevor der Spieler den Befehl zum Beitritt in einen Kampf verwenden darf. Der Kampfbeitrittsbefehl registriert keinen Spieler automatisch; unregistrierte Spieler dürfen ihn nicht nutzen. Der konkrete Registrierungsablauf und der Name des Kampfbeitrittsbefehls sind noch offen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Grundablauf der Spielerregistrierung:** Der Spieler startet die Registrierung mit dem Befehl `registrieren`. BattleDome prüft, ob bereits ein Account zum Nicknamen existiert. Falls nicht, wird eine vorbereitete Spielervorlage in das vorgesehene Spielerverzeichnis kopiert und nach dem Spielernamen benannt. Vorhandene Standardwerte der Vorlage bleiben erhalten; vorgesehene individuelle Felder wie Spielername und Registrierungsdatum werden angepasst. Der Bot erzeugt ein zufälliges Passwort, speichert in der Spielerdatei nur einen Passwort-Hash und sendet das Klartextpasswort per privater IRC-Nachricht an den Spieler. Nach erfolgreicher Erstellung erhält der Spieler eine Registrierungsbestätigung. Die Vorlage soll unter anderem Standardwerte für Lebenspunkte und eine Charakterbeschreibung enthalten. Die genaue Dateistruktur und der konkrete Passwort-Hashing-Algorithmus sind noch offen. Entscheider: Nutzer. Datum: 2026-10-26.
+- [x] **Bereits vergebener Nickname bei der Registrierung:** Wenn beim Befehl `registrieren` bereits ein Account zum verwendeten Nicknamen existiert, muss die Registrierung sofort abgebrochen werden. Die vorhandene Registrierung und Spielerdatei dürfen keinesfalls überschrieben oder verändert werden. Der Bot informiert den Nutzer über eine Meldung aus `Translation.dat`, dass unter diesem Nicknamen bereits ein Account existiert, und fordert ihn auf, mit `/nick Neuernick` einen anderen Nicknamen zu wählen und die Registrierung erneut zu versuchen. Die Prüfung muss vor dem Kopieren der Spielervorlage oder anderen Änderungen an Spielerdateien stattfinden. Begründung: Schutz vor Überschreiben und Verlust fremder Spielerdaten. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Keine Anmeldung zum Kampf:** Wenn sich während der Anmeldephase niemand anmeldet, wird der Kampf abgesagt und der Bot meldet, dass sich niemand angemeldet hat. Anschließend wartet das System eine noch festzulegende Zeit, bevor es eine neue Kampfankündigung startet. Dauer und konkrete Timer-Umsetzung bleiben offen. Entscheider: Nutzer. Datum: 2026-10-26.
 
 ## 5. Technischer und organisatorischer Stand
@@ -217,6 +218,14 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-26 – Verhalten bei bereits registriertem Nicknamen festgelegt
+
+- Die Nutzerentscheidung dokumentiert, dass eine Registrierung bei einem bereits vorhandenen Account zum Nicknamen sofort abgebrochen wird.
+- Festgehalten, dass die vorhandene Spielerdatei und Registrierung keinesfalls überschrieben oder verändert werden dürfen.
+- Ergänzt, dass der Bot den Nutzer über `Translation.dat` informiert und ihn auffordert, mit `/nick Neuernick` den Nicknamen zu ändern und die Registrierung erneut zu versuchen.
+- Festgehalten, dass die Prüfung vor dem Kopieren der Spielervorlage und vor Änderungen an Spielerdateien erfolgen muss.
+
 
 ### 2026-10-26 – Grundablauf der Spielerregistrierung festgelegt
 
