@@ -1089,3 +1089,13 @@ Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT
 - Beispiele wie `HP Check`, `HP Status`, `Battle Check for End` und `Portal Clear Monsters` als vorläufige Beispiele aus der Nutzerskizze dokumentiert, nicht als endgültig beschlossene Namen oder Schnittstellen.
 - Offen gelassen, wie Zuständigkeiten, Rückgabewerte, Aufrufreihenfolge, temporäre Variablen und der Kampfende-Helfer im Detail umgesetzt werden.
 - Präzisiert, dass diese Zielarchitektur die spätere Erweiterbarkeit vorbereitet, ohne den Prototypen vorzeitig mit allen künftigen Mechaniken auszustatten.
+
+
+### 2026-10-26 – Zuständigkeit von `Battle Check for End` und Kampfende präzisiert
+
+- Die Nutzerentscheidung dokumentiert, dass `Battle Check for End` nicht selbst die eigentliche Kampfend-Abwicklung übernimmt.
+- `Battle Check for End` prüft mithilfe spezialisierter Helfer, ob Spieler beziehungsweise Monster besiegt sind, interpretiert die Prüfergebnisse und signalisiert die festgestellte Situation an den zuständigen Ablauf.
+- Wenn das Kampfende erreicht ist, darf der normale Kampf- beziehungsweise Zugablauf nicht weiterlaufen. Die Kontrolle wird entsprechend übergeben beziehungsweise die laufende Verarbeitung gestoppt.
+- `endbattle` ist für die eigentliche Abwicklung des Kampfendes zuständig und kann dafür weitere spezialisierte Helfer aufrufen; die Bereinigung aktiver Kampfdaten bleibt eine getrennte Zuständigkeit.
+- Die konkrete technische Form des Signals und des Abbruchs, etwa Rückgabewert, Aufrufstruktur oder mIRC-Steuerbefehl, bleibt eine Implementierungsfrage und wird nicht durch die Architekturentscheidung vorweggenommen.
+- Diese Zuständigkeitstrennung gilt als für die Planung der Helferarchitektur abgeschlossen. Entscheider: Nutzer. Datum: 2026-10-26.
