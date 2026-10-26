@@ -71,6 +71,7 @@ Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich ge
 - [x] **Nach jeder IRC-Verbindung neu anmelden:** Der Nutzer bevorzugt ausdrücklich Variante A: Nach einer Trennung und erneuten Verbindung muss ein Spieler sich erneut mit `!ID passwort` anmelden. Beim `ON QUIT`-Ereignis sollen die vorübergehend vergebenen Bot-Zugriffsrechte entfernt werden; die dauerhaften Account- und Spielerdaten bleiben bestehen. Die konkrete Implementierung des Ereignisses ist noch offen. Als mIRC-Befehl zum Entfernen eines Nutzers bzw. seiner Zugriffsrechte ist `/ruser` dokumentiert (nicht `/deluser` oder `/duser`); welche genaue Form im Skript erforderlich ist, wird bei der Implementierung geprüft. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Laufenden Kampf bei Verbindungsabbruch eines Teilnehmers beenden:** Wenn ein Spieler während eines laufenden Kampfes die IRC-Verbindung verliert, werden seine vorübergehend vergebenen Bot-Zugriffsrechte entfernt und der gesamte laufende Kampf wird beendet. Der Kampf läuft nicht ohne diesen Spieler weiter. Der Spieleraccount und die gespeicherten Spielerdaten bleiben bestehen; nach der Wiederverbindung muss sich der Spieler erneut anmelden. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Einfaches Kampfende bei Monstersieg in Version 1:** Wenn das Monster besiegt wird, endet der Kampf. Das Monster wird aus der Zugreihenfolge entfernt und die laufenden Kampfdaten werden verworfen; dauerhafte Accounts und gespeicherte Spielerdaten bleiben erhalten. In der ersten Version gibt es dabei noch keine Belohnungen oder weiteren Folgefunktionen. Belohnungen, Events, Monsterfähigkeiten, zusätzliche Monsterattribute und ähnliche Erweiterungen werden erst nach einem funktionierenden Grundgerüst schrittweise geplant. Sie sind aufgeschoben, nicht grundsätzlich ausgeschlossen. Entscheider: Nutzer. Datum: 2026-10-26.
+- [x] **Einfaches Kampfende bei Niederlage aller Spieler in Version 1:** Sobald alle am Kampf teilnehmenden Spieler besiegt sind, endet der Kampf – auch wenn nur ein einziger Spieler teilnimmt. Das Monster wird aus der Zugreihenfolge entfernt und die laufenden Kampfdaten werden verworfen; dauerhafte Accounts und gespeicherte Spielerdaten bleiben erhalten. In Version 1 sind dafür keine zusätzlichen Folgen oder Belohnungsmechaniken vorgesehen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Monster und Kampfdaten bei Kampfende verwerfen:** Wird ein laufender Kampf durch den Verbindungsabbruch eines Teilnehmers beendet, endet der Kampf für alle Beteiligten, einschließlich des Monsters. Das Monster wird aus der Zugreihenfolge entfernt und die laufenden Kampfdaten werden geleert bzw. verworfen. Der Kampfzustand wird nicht fortgesetzt; bei einem späteren Kampf wird ein neues Monster erzeugt. Dauerhafte Accounts und gespeicherte Spielerdaten bleiben unberührt. Die konkrete technische Speicherung und Bereinigung der Kampfdaten ist noch offen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Keine Anmeldung zum Kampf:** Wenn sich während der Anmeldephase niemand anmeldet, wird der Kampf abgesagt und der Bot meldet, dass sich niemand angemeldet hat. Anschließend wartet das System eine noch festzulegende Zeit, bevor es eine neue Kampfankündigung startet. Dauer und konkrete Timer-Umsetzung bleiben offen. Entscheider: Nutzer. Datum: 2026-10-26.
 
@@ -224,6 +225,13 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-26 – Kampfende bei Niederlage aller Spieler festhalten
+
+- Die Nutzerentscheidung dokumentiert, dass der Kampf endet, sobald alle teilnehmenden Spieler besiegt sind.
+- Ausdrücklich klargestellt, dass die Regel auch für einen Kampf mit nur einem teilnehmenden Spieler gilt.
+- Für das Kampfende werden das Monster aus der Zugreihenfolge entfernt und die laufenden Kampfdaten verworfen; dauerhafte Accounts und Spielerdaten bleiben erhalten.
+- Für Version 1 sind keine zusätzlichen Folgen oder Belohnungsmechaniken vorgesehen.
 
 ### 2026-10-26 – Einfaches Kampfende bei Monstersieg festhalten
 
