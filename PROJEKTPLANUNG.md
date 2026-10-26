@@ -1099,3 +1099,12 @@ Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT
 - `endbattle` ist für die eigentliche Abwicklung des Kampfendes zuständig und kann dafür weitere spezialisierte Helfer aufrufen; die Bereinigung aktiver Kampfdaten bleibt eine getrennte Zuständigkeit.
 - Die konkrete technische Form des Signals und des Abbruchs, etwa Rückgabewert, Aufrufstruktur oder mIRC-Steuerbefehl, bleibt eine Implementierungsfrage und wird nicht durch die Architekturentscheidung vorweggenommen.
 - Diese Zuständigkeitstrennung gilt als für die Planung der Helferarchitektur abgeschlossen. Entscheider: Nutzer. Datum: 2026-10-26.
+
+
+### 2026-10-26 – Übergabe vom Kampfende zur nächsten Kampfankündigung präzisiert
+
+- Der Nutzer tendiert zu Variante A: `clear_battle` stößt den Ablauf für den nächsten Kampf an, jedoch nicht durch eine selbst festgelegte Wartezeit und nicht durch das direkte Verfassen oder Ausgeben der Ankündigung.
+- `clear_battle` übergibt lediglich das Signal, dass ein neuer Kampf angekündigt werden kann.
+- Ein dafür zuständiger weiterer Helfer übernimmt die eigentliche nächste Kampfankündigung beziehungsweise den entsprechenden Ablauf. Die genaue Zuständigkeit und der endgültige Helfername bleiben offen.
+- Eine Wartezeit ist damit nicht Aufgabe von `clear_battle`; ob und wo zwischen Kampfende und nächster Ankündigung eine Verzögerung vorgesehen ist, bleibt separat zu klären, falls es für Version 1 relevant ist.
+- Entscheider: Nutzer. Datum: 2026-10-26.
