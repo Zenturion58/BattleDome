@@ -70,6 +70,7 @@ Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich ge
 - [x] **Anmeldebefehl `!ID passwort` ausschließlich privat verarbeiten:** Der Nutzer hat den bereits vorgesehenen Anmeldebefehl als `!ID passwort` festgelegt. Der Befehl darf ausschließlich als private Nachricht direkt an den Bot verarbeitet werden; eine Eingabe im IRC-Kanal darf keine Anmeldung und keine Vergabe von Zugriffsrechten auslösen. Es ist nicht erforderlich, technisch zu verhindern, dass ein Nutzer den Befehl versehentlich in einem Kanal veröffentlicht. Wer das Passwort selbst öffentlich postet, ist für diese Offenlegung verantwortlich; BattleDome muss dafür keine Sonderbehandlung implementieren. Bot-Zugriffsrechte dürfen erst nach erfolgreicher Passwortprüfung vergeben werden. Das Passwort darf nicht durch Bot-Antworten öffentlich ausgegeben oder unnötig protokolliert werden. Die konkrete Funktionsweise und der Code sind noch nicht festgelegt. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Nach jeder IRC-Verbindung neu anmelden:** Der Nutzer bevorzugt ausdrücklich Variante A: Nach einer Trennung und erneuten Verbindung muss ein Spieler sich erneut mit `!ID passwort` anmelden. Beim `ON QUIT`-Ereignis sollen die vorübergehend vergebenen Bot-Zugriffsrechte entfernt werden; die dauerhaften Account- und Spielerdaten bleiben bestehen. Die konkrete Implementierung des Ereignisses ist noch offen. Als mIRC-Befehl zum Entfernen eines Nutzers bzw. seiner Zugriffsrechte ist `/ruser` dokumentiert (nicht `/deluser` oder `/duser`); welche genaue Form im Skript erforderlich ist, wird bei der Implementierung geprüft. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Laufenden Kampf bei Verbindungsabbruch eines Teilnehmers beenden:** Wenn ein Spieler während eines laufenden Kampfes die IRC-Verbindung verliert, werden seine vorübergehend vergebenen Bot-Zugriffsrechte entfernt und der gesamte laufende Kampf wird beendet. Der Kampf läuft nicht ohne diesen Spieler weiter. Der Spieleraccount und die gespeicherten Spielerdaten bleiben bestehen; nach der Wiederverbindung muss sich der Spieler erneut anmelden. Entscheider: Nutzer. Datum: 2026-10-26.
+- [x] **Monster und Kampfdaten bei Kampfende verwerfen:** Wird ein laufender Kampf durch den Verbindungsabbruch eines Teilnehmers beendet, endet der Kampf für alle Beteiligten, einschließlich des Monsters. Das Monster wird aus der Zugreihenfolge entfernt und die laufenden Kampfdaten werden geleert bzw. verworfen. Der Kampfzustand wird nicht fortgesetzt; bei einem späteren Kampf wird ein neues Monster erzeugt. Dauerhafte Accounts und gespeicherte Spielerdaten bleiben unberührt. Die konkrete technische Speicherung und Bereinigung der Kampfdaten ist noch offen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Keine Anmeldung zum Kampf:** Wenn sich während der Anmeldephase niemand anmeldet, wird der Kampf abgesagt und der Bot meldet, dass sich niemand angemeldet hat. Anschließend wartet das System eine noch festzulegende Zeit, bevor es eine neue Kampfankündigung startet. Dauer und konkrete Timer-Umsetzung bleiben offen. Entscheider: Nutzer. Datum: 2026-10-26.
 
 ## 5. Technischer und organisatorischer Stand
@@ -222,6 +223,13 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-26 – Monster und Kampfdaten bei abgebrochenem Kampf verwerfen
+
+- Die Nutzerentscheidung dokumentiert, dass bei einem durch Verbindungsabbruch beendeten Kampf der gesamte Kampf für Spieler und Monster endet.
+- Festgehalten, dass das Monster aus der Zugreihenfolge entfernt und die laufenden Kampfdaten verworfen werden.
+- Klargestellt, dass bei einem späteren Kampf ein neues Monster erzeugt wird und dauerhafte Accounts sowie gespeicherte Spielerdaten erhalten bleiben.
+- Die konkrete technische Speicherung und Bereinigung der Kampfdaten ausdrücklich offen gelassen.
 
 ### 2026-10-26 – Kampfende bei Verbindungsabbruch eines Teilnehmers festgelegt
 
