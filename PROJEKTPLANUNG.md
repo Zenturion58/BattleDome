@@ -246,6 +246,14 @@ Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT
 
 ## 9. Änderungsprotokoll
 
+### 2026-10-26 – Rundenwechsel und Zwischenstände im Mehrspielerkampf festgelegt
+
+- Eine Runde endet erst, wenn die vollständige Zugreihenfolge aller beteiligten Spieler und Monster abgearbeitet wurde. Der Rundenzähler wird nicht nach jedem einzelnen Zug erhöht.
+- Der aktive Kampfzustand muss aktuelle Rundennummer und aktuelle Position in der Zugreihenfolge getrennt festhalten.
+- Unmittelbare Monstergegenangriffe gehören zum laufenden Spielerzug und sind kein eigenständiger Zug in der regulären Reihenfolge.
+- Hat ein Monster bereits in dieser Runde angegriffen, wird sein späterer regulärer Zug übersprungen; der Eintrag gilt trotzdem als abgearbeitet.
+- Die notwendigen Zwischenstände müssen für einen fehlerfreien Mehrspielerkampf gespeichert werden. Die konkrete technische Umsetzung und das Speicherformat bleiben offen.
+
 ### 2026-10-26 – Erfassung bereits erfolgter Monsterangriffe pro Runde festgelegt
 
 - Die Nutzerbestätigung dokumentiert, dass `Battle.txt` einen Abschnitt `[RoundStatus]` mit dem Schlüssel `MonstersActed` erhalten soll.
