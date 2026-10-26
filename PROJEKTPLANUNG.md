@@ -64,6 +64,7 @@ Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich ge
 - [x] **Umfang der ersten Version (Grundgerüst):** Die erste Version konzentriert sich auf das technisch funktionsfähige rundenbasierte PvE-Kampfsystem: Spieler können einem Kampf beitreten, Monster werden zufällig erzeugt und die teilnehmenden Spieler kämpfen gemeinsam gegen das Monster. Waffen, Ausrüstung, Skills, Fähigkeiten, Techniken, Gegenstände, Loot, Events, Quests, Dungeons und weitere Erweiterungen gehören ausdrücklich nicht zur ersten Version; sie können später schrittweise ergänzt werden. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Textausgaben von Programmcode trennen:** Allgemeine Bot- und Systemmeldungen sollen nicht direkt als feste Texte im Quellcode stehen, sondern aus einer vorgesehenen `Translation.dat` gelesen werden. Dazu zählen beispielsweise Kampfmeldungen, Fehlermeldungen, Registrierungs- und spätere Eventankündigungen. Inhaltsspezifische Texte wie Monsterbeschreibungen und -angriffe sowie Waffen-, Skill- oder Techniktexte sollen in den jeweils zuständigen Fachdatenbanken bzw. Dateien liegen. `$readini(...)` ist als möglicher Lesezugriff genannt; das genaue Dateiformat und Schema bleiben offen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Spielerregistrierung und Kampfbeitritt trennen:** Die Registrierung eines Spielers ist ein eigener Vorgang und muss erfolgt sein, bevor der Spieler den Befehl zum Beitritt in einen Kampf verwenden darf. Der Kampfbeitrittsbefehl registriert keinen Spieler automatisch; unregistrierte Spieler dürfen ihn nicht nutzen. Der konkrete Registrierungsablauf und der Name des Kampfbeitrittsbefehls sind noch offen. Entscheider: Nutzer. Datum: 2026-10-26.
+- [x] **Grundablauf der Spielerregistrierung:** Der Spieler startet die Registrierung mit dem Befehl `registrieren`. BattleDome prüft, ob bereits ein Account zum Nicknamen existiert. Falls nicht, wird eine vorbereitete Spielervorlage in das vorgesehene Spielerverzeichnis kopiert und nach dem Spielernamen benannt. Vorhandene Standardwerte der Vorlage bleiben erhalten; vorgesehene individuelle Felder wie Spielername und Registrierungsdatum werden angepasst. Der Bot erzeugt ein zufälliges Passwort, speichert in der Spielerdatei nur einen Passwort-Hash und sendet das Klartextpasswort per privater IRC-Nachricht an den Spieler. Nach erfolgreicher Erstellung erhält der Spieler eine Registrierungsbestätigung. Die Vorlage soll unter anderem Standardwerte für Lebenspunkte und eine Charakterbeschreibung enthalten. Die genaue Dateistruktur und der konkrete Passwort-Hashing-Algorithmus sind noch offen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Keine Anmeldung zum Kampf:** Wenn sich während der Anmeldephase niemand anmeldet, wird der Kampf abgesagt und der Bot meldet, dass sich niemand angemeldet hat. Anschließend wartet das System eine noch festzulegende Zeit, bevor es eine neue Kampfankündigung startet. Dauer und konkrete Timer-Umsetzung bleiben offen. Entscheider: Nutzer. Datum: 2026-10-26.
 
 ## 5. Technischer und organisatorischer Stand
@@ -182,7 +183,9 @@ Die folgenden Themen müssen bei Bedarf gemeinsam besprochen werden. Sie sind be
 - Wie der Architekturentwurf endgültig ausgestaltet wird, einschließlich der genauen Dateiaufteilung und Zuständigkeiten.
 - Ob die vorläufigen Dateinamen und Namenskonventionen beibehalten oder geändert werden.
 - Welche mIRC-Version und welche konkreten Laufzeitbedingungen vorausgesetzt werden, falls dies relevant wird.
-- Wie ein Spieler im BattleDome-System registriert wird.
+- Wie die Spielervorlage und die individuellen Spielerdateien genau aufgebaut und abgelegt werden.
+- Welcher geeignete Passwort-Hashing-Algorithmus und welche Parameter für die Speicherung der zufällig erzeugten Passwörter verwendet werden.
+- Wie mit Nicknamenänderungen und späteren Wiederherstellungen von Zugangsdaten umgegangen werden soll, falls diese Themen für die erste Version relevant werden.
 - Welchen Namen der Befehl zum Beitritt in einen Kampf erhält (beispielsweise `beitreten` oder `join`). Die Entscheidung ist offen.
 - Welche weiteren IRC-Befehle Spieler verwenden, sobald Registrierung und Kampfbeitritt genauer geplant sind.
 - Wie lang die Anmeldephase dauert und wie sie konfiguriert wird.
@@ -214,6 +217,15 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-26 – Grundablauf der Spielerregistrierung festgelegt
+
+- Den Befehl `registrieren` als Einstieg in die Registrierung dokumentiert.
+- Festgehalten, dass vor dem Anlegen eines Accounts geprüft wird, ob bereits ein Account zum Nicknamen existiert.
+- Den geplanten Ablauf mit Kopie und Umbenennung einer Spielervorlage, Anpassung vorgesehener Werte, zufälligem Passwort und privater Zustellung des Klartextpassworts festgehalten.
+- Festgelegt dokumentiert, dass die Spielerdatei nur einen Passwort-Hash und nicht das Klartextpasswort enthalten soll.
+- Standardwerte wie Lebenspunkte und Charakterbeschreibung als vorgesehene Vorlageninhalte aufgenommen.
+- Konkreten Dateiaufbau und Hashing-Algorithmus ausdrücklich offen gelassen.
 
 ### 2026-10-26 – Spielerregistrierung vom Kampfbeitritt getrennt
 
