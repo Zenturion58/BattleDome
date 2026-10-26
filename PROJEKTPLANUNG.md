@@ -1108,3 +1108,13 @@ Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT
 - Ein dafür zuständiger weiterer Helfer übernimmt die eigentliche nächste Kampfankündigung beziehungsweise den entsprechenden Ablauf. Die genaue Zuständigkeit und der endgültige Helfername bleiben offen.
 - Eine Wartezeit ist damit nicht Aufgabe von `clear_battle`; ob und wo zwischen Kampfende und nächster Ankündigung eine Verzögerung vorgesehen ist, bleibt separat zu klären, falls es für Version 1 relevant ist.
 - Entscheider: Nutzer. Datum: 2026-10-26.
+
+### 2026-10-26 – Zuständigkeiten von `clear_files` und `clear_dead_monsters` präzisiert
+
+- `portal.clear.monsters` vergleicht die Anzahl lebender Monster mit der zuvor erfassten Monster-Gesamtzahl. Wenn weniger Monster leben als zuvor erfasst, stößt der Helfer über die Dateisuche die Bereinigung durch `clear_dead_monsters` an.
+- `clear_dead_monsters` entfernt gezielt Monster-Charakterdateien, deren HP-Wert bei 0 oder darunter liegt. Seine Aufgabe ist die Entfernung besiegter Monster während des Kampfablaufs, damit diese nicht später erneut in die Zugreihenfolge gelangen.
+- `clear_files` übernimmt eine andere Aufgabe am Kampfende: Es entfernt die noch vorhandenen Monster- und NPC-Charakterdateien, die nach Abschluss des Kampfes nicht im Charakterordner zurückbleiben sollen. Der gezeigte Zweig entscheidet anhand von `%clear.flag` (`monster` oder `npc`), nicht anhand der HP.
+- Die beiden Helfer können somit beide `.char`-Dateien löschen, sind aber wegen ihres unterschiedlichen Auslösers, Zeitpunkts und Auswahlkriteriums nicht gleichbedeutend: `clear_dead_monsters` bereinigt tote Monster während des Kampfes; `clear_files` bereinigt verbliebene Monster/NPCs am Ende des gesamten Kampfes.
+- Diese Trennung verhindert, dass veraltete Monsterdateien bei einer späteren Generierung der Kampf- oder Zugreihenfolge erneut aufgenommen werden. Dauerhafte Spielerkonten gehören nicht zu dieser Bereinigung.
+- Bei der Implementierung ist sicherzustellen, dass die Dateisuche und Löschvorgänge rechtzeitig abgeschlossen sind, bevor eine neue Kampf- oder Zugreihenfolge aus dem Charakterordner erstellt wird. Der genaue technische Ablauf ist noch eine Implementierungsfrage.
+- Entscheider: Nutzer. Datum: 2026-10-26.
