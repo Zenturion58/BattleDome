@@ -73,6 +73,7 @@ Diese Liste enthält nur Entscheidungen, die der Nutzer bereits ausdrücklich ge
 - [x] **Einfaches Kampfende bei Monstersieg in Version 1:** Wenn das Monster besiegt wird, endet der Kampf. Das Monster wird aus der Zugreihenfolge entfernt und die laufenden Kampfdaten werden verworfen; dauerhafte Accounts und gespeicherte Spielerdaten bleiben erhalten. In der ersten Version gibt es dabei noch keine Belohnungen oder weiteren Folgefunktionen. Belohnungen, Events, Monsterfähigkeiten, zusätzliche Monsterattribute und ähnliche Erweiterungen werden erst nach einem funktionierenden Grundgerüst schrittweise geplant. Sie sind aufgeschoben, nicht grundsätzlich ausgeschlossen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Einfaches Kampfende bei Niederlage aller Spieler in Version 1:** Sobald alle am Kampf teilnehmenden Spieler besiegt sind, endet der Kampf – auch wenn nur ein einziger Spieler teilnimmt. Das Monster wird aus der Zugreihenfolge entfernt und die laufenden Kampfdaten werden verworfen; dauerhafte Accounts und gespeicherte Spielerdaten bleiben erhalten. In Version 1 sind dafür keine zusätzlichen Folgen oder Belohnungsmechaniken vorgesehen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Monster und Kampfdaten bei Kampfende verwerfen:** Wird ein laufender Kampf durch den Verbindungsabbruch eines Teilnehmers beendet, endet der Kampf für alle Beteiligten, einschließlich des Monsters. Das Monster wird aus der Zugreihenfolge entfernt und die laufenden Kampfdaten werden geleert bzw. verworfen. Der Kampfzustand wird nicht fortgesetzt; bei einem späteren Kampf wird ein neues Monster erzeugt. Dauerhafte Accounts und gespeicherte Spielerdaten bleiben unberührt. Die konkrete technische Speicherung und Bereinigung der Kampfdaten ist noch offen. Entscheider: Nutzer. Datum: 2026-10-26.
+- [x] **Flucht aus einem laufenden Kampf mit `!flee`:** Der Befehl `!flee` lässt den aufrufenden Spieler aus dem laufenden Kampf fliehen. Dieser Spieler wird aus der Zugreihenfolge entfernt und `NumberOfPlayers` im Abschnitt `[Battle]` der Datei `Battle.txt` wird um eins verringert. Solange danach noch mindestens ein Spieler am Kampf teilnimmt, läuft der Kampf mit den übrigen Spielern weiter. Flieht der letzte verbliebene Spieler, endet der Kampf. Der vorgesehene Helfer `$players_in_battle` liest `NumberOfPlayers` mit `$readini` aus `Battle.txt` und gibt den Wert zurück. Die konkrete Implementierung und die genaue Reihenfolge von Aktualisierung und Prüfung bleiben offen. Entscheider: Nutzer. Datum: 2026-10-26.
 - [x] **Keine Anmeldung zum Kampf:** Wenn sich während der Anmeldephase niemand anmeldet, wird der Kampf abgesagt und der Bot meldet, dass sich niemand angemeldet hat. Anschließend wartet das System eine noch festzulegende Zeit, bevor es eine neue Kampfankündigung startet. Dauer und konkrete Timer-Umsetzung bleiben offen. Entscheider: Nutzer. Datum: 2026-10-26.
 
 ## 5. Technischer und organisatorischer Stand
@@ -105,6 +106,12 @@ Die noch offenen Punkte sind Arbeitsaufgaben, keine bereits getroffenen Entschei
 Allgemeine Bot- und Systemmeldungen sollen nicht als feste Nachrichtentexte im Quellcode eingebettet werden. Sie sollen aus einer zentral vorgesehenen `Translation.dat` gelesen werden. Beispiele sind Kampfankündigungen und Kampfmeldungen, Fehlermeldungen, Registrierungsnachrichten sowie spätere Eventankündigungen. Texte, die zu konkreten Spielinhalten gehören – etwa Monsterbeschreibungen und Monsterangriffe oder Waffen-, Skill- und Techniktexte – sollen in den jeweils zuständigen Fachdatenbanken bzw. Dateien liegen.
 
 Der Nutzer nannte `$readini(Datei, Abschnitt, Schlüssel)` als möglichen Zugriff auf Einträge und stellte klar, dass für `readini` die Dateiendung (`.dat`, `.db`, `.txt` oder eine andere) nicht entscheidend ist. Maßgeblich ist, dass der Dateiinhalt die erwartete Struktur mit passenden Abschnitten und Schlüsseln besitzt. Das konkrete Schema, der Umgang mit fehlenden Texten und die Implementierung bleiben offen. Diese Vorgabe dient dazu, den Quellcode übersichtlich zu halten.
+
+### Flucht aus einem laufenden Kampf mit `!flee`
+
+Der Befehl `!flee` soll den aufrufenden Spieler aus der Zugreihenfolge entfernen und `NumberOfPlayers` in `Battle.txt` unter `[Battle]` um eins reduzieren. Der vorgesehene Helfer `$players_in_battle` liest diesen Wert mit `$readini` und gibt ihn zurück. Der Kampf läuft weiter, solange nach der Flucht mindestens ein Spieler übrig bleibt; flieht der letzte Spieler, endet der Kampf.
+
+**Noch offen:** Die konkrete mIRC-Implementierung des Helfers, die genaue Reihenfolge von Zählwertaktualisierung und Prüfung sowie die vollständige Bereinigung der Kampfdaten beim dadurch ausgelösten Kampfende.
 
 ### Ablauf bei ausbleibenden Anmeldungen
 
@@ -225,6 +232,13 @@ Wenn ein neues Gespräch begonnen wird, kann der Nutzer diese Anweisung verwende
 Falls die GitHub-Anbindung im neuen Gespräch nicht verfügbar ist, soll ChatGPT den Nutzer bitten, den Inhalt dieser Datei bereitzustellen, statt frühere Entscheidungen zu erraten.
 
 ## 9. Änderungsprotokoll
+
+### 2026-10-26 – Fluchtbefehl und Spielerzählung dokumentieren
+
+- Festgehalten, dass `!flee` den aufrufenden Spieler aus dem Kampf und der Zugreihenfolge entfernt.
+- `NumberOfPlayers` in `Battle.txt` wird bei jeder Flucht um eins verringert.
+- Der Kampf läuft weiter, solange nach der Flucht mindestens ein Spieler verbleibt; flieht der letzte Spieler, endet der Kampf.
+- Den vorgesehenen Helfer `$players_in_battle` ergänzt, der den Zählwert mit `$readini` aus `[Battle]` liest und zurückgibt. Die Implementierungsdetails bleiben offen.
 
 ### 2026-10-26 – Kampfende bei Niederlage aller Spieler festhalten
 
